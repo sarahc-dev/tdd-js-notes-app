@@ -62,9 +62,9 @@ I want to filter incomplete todos
 
 This is a rough outline of how the app will look.
 
-![app wireframe](./diagrams/wireframe.png)
+![app wireframe](./images/wireframe.png)
 
-![edit todo wireframe](./diagrams/edit-todo-wireframe.png)
+![edit todo wireframe](./images/edit-todo-wireframe.png)
 
 ### Backend Design
 
@@ -74,16 +74,25 @@ I will be following the Model-View-Controller (MVC) architectural pattern.
 - View (Route) - defines the API endpoints, and thus the communication between the front and backend. It matches a user request to the appropriate controller action.
 - Controller - handles the logic and interaction with the database based on the user request.
 
-![backend diagram](./diagrams/backend-diagram.png)
-
-### Backend setup
-
-I will begin by creating the backend.
-
-I am using Jest for unit tests, and I am also going to be using Supertest to perform some integration tests. This is a library that enables you to test APIs.
+![backend diagram](./images/backend-diagram.png)
 
 ### Frontend Component Design
 
 This is my initial plan for the component breakdown. It may change slightly, particularly in terms of the editing functionality.
 
-![component breakdown](./diagrams/component-breakdown.png)
+![component breakdown](./images/component-breakdown.png)
+
+## Process
+
+### Backend
+
+I began by creating the backend. I wanted to learn more about integrating TypeScript in the backend and understand everything I am doing so I have set up my backend from scratch.
+
+I started off by setting up the TypeScript compiler and console logging "Hello World" to ensure that this is working correctly.
+
+![hello world](./images/hello-world.png)
+
+From these humble beginnings, and in the name of TDD I could now start to write my first test. I am using Jest for unit tests and Supertest, a library that enables you to test APIs, for integration tests. So I started with the integration test. Guided by TypeScript and Jest errors, I found my way to my first "expected" error. This is a failing test I love to see, because it means I have set up everything else correctly.
+
+![first failing test](./images/failing-test.png)
+
