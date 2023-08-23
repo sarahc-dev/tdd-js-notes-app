@@ -10,9 +10,9 @@ For the database, I will be using MongoDB.
 
 ## The MERN stack app
 
-Here, I will be building the App with a backend API built with Node.js and Express, and Jest for testing.
+Here, I will be building the App with a backend API built with Node.js, Express and TypeScript. I am using Jest and Supertest for testing.
 
-The React frontend sends HTTP request to the backend API and receives JSON data in response.
+The React frontend sends HTTP requests to the backend API and receives JSON data in response.
 
 ### See the other projects:
 
@@ -75,6 +75,12 @@ I will be following the Model-View-Controller (MVC) architectural pattern.
 - Controller - handles the logic and interaction with the database based on the user request.
 
 ![backend diagram](./diagrams/backend-diagram.png)
+
+### Backend setup
+
+I will begin by creating the backend.
+
+I am using Jest for unit tests, and I am also going to be using Supertest to perform some integration tests. This is a library that enables you to test APIs.
 
 ### Frontend Component Design
 
