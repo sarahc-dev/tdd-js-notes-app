@@ -8,11 +8,20 @@ In the frontend, I will use React and Next.js (along with TypeScript, TailwindCS
 
 For the database, I will be using MongoDB.
 
+## The MERN stack app
+
+Here, I will be building the App with a backend API built with Node.js and Express, and Jest for testing.
+
+The React frontend sends HTTP request to the backend API and receives JSON data in response.
+
+### See the other projects:
+
 ## Installation
 
-```bash
+```plain
 $ git clone https://github.com/sarahc-dev/todolist-collection.git
 $ cd todolist-collection
+...
 ```
 
 ## Planning
@@ -49,6 +58,26 @@ So that I can see what I still have to do
 I want to filter incomplete todos
 ```
 
-### Wireframe
+### Wireframes
+
+This is a rough outline of how the app will look.
 
 ![app wireframe](./diagrams/wireframe.png)
+
+![edit todo wireframe](./diagrams/edit-todo-wireframe.png)
+
+### Backend Design
+
+I will be following the Model-View-Controller (MVC) architectural pattern.
+
+- Model - defines the database model and structure of the data (database schema)
+- View (Route) - defines the API endpoints, and thus the communication between the front and backend. It matches a user request to the appropriate controller action.
+- Controller - handles the logic and interaction with the database based on the user request.
+
+![backend diagram](./diagrams/backend-diagram.png)
+
+### Frontend Component Design
+
+This is my initial plan for the component breakdown. It may change slightly, particularly in terms of the editing functionality.
+
+![component breakdown](./diagrams/component-breakdown.png)
