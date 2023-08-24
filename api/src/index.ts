@@ -4,7 +4,7 @@ const app = express();
 const port = 8080;
 
 app.get("/todos", (req, res) => {
-    res.json("Hello world");
+    res.json([{ todo: "Get milk", completed: true }]);
 });
 
 export const server = app.listen(port, () => {
