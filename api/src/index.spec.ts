@@ -1,5 +1,9 @@
 import request from "supertest";
-import app from "./index";
+import app, { server } from "./index";
+
+afterAll(() => {
+    server.close();
+});
 
 describe("Todolist API", () => {
     it("GET /todos returns an array of all todos", () => {
