@@ -96,3 +96,4 @@ From these humble beginnings, and in the name of TDD I could now start to write 
 
 ![first failing test](./images/failing-test.png)
 
+I initially got this test to pass with hard-coded data. I then wanted to get the data from a database. I added another test to assert that the array would be empty if there were no todos to drive the need to return dynamic data.
