@@ -5,5 +5,6 @@ const router = express.Router();
 
 router.get("/", todosController.getAllTodos);
 router.post("/", todosController.addTodo);
+router.patch("/:id", todosController.editTodo);
 
 export default router;

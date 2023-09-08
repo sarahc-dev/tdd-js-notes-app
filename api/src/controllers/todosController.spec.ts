@@ -64,4 +64,40 @@ describe("Todolist API", () => {
 
         expect(response.body).toEqual({ error: "Internal server error" });
     });
+
+    it("PATCH /todos/id updates completed status to true", async () => {
+        const todo = await new Todo({ title: "Walk cat" }).save();
+
+        const response = await request(app).patch(`/todos/${todo._id}`).send({ completed: true }).expect(200);
+
+        expect(response.body._id.toString()).toEqual(todo._id.toString());
+        expect(response.body.title).toBe("Walk cat");
+        expect(response.body.completed).toBe(true);
+    });
+
+    it("PATCH /todos/id updates contents of todo", async () => {
+        const todo = await new Todo({ title: "Walk cat" }).save();
+
+        const response = await request(app).patch(`/todos/${todo._id}`).send({ title: "Walk dog" }).expect(200);
+
+        expect(response.body._id.toString()).toEqual(todo._id.toString());
+        expect(response.body.title).toBe("Walk dog");
+        expect(response.body.completed).toBe(false);
+    });
+
+    it("PATCH /todos/id returns 404 status if no id", async () => {
+        await request(app).patch("/todos/").send({ title: "Walk dog" }).expect(404);
+    });
+
+    it("PATCH /todos/id returns 400 status if no value to update", async () => {
+        const todo = await new Todo({ title: "Walk cat" }).save();
+
+        const response = await request(app).patch(`/todos/${todo._id}`).send().expect(400);
+        expect(response.body).toEqual({ error: "Invalid request" });
+    });
+
+    it("PATCH /todos/id returns 500 status error if it cannot update todo", async () => {
+        const response = await request(app).patch("/todos/123").send({ title: "Walk dog" }).expect(500);
+        expect(response.body).toEqual({ error: "Internal server error" });
+    });
 });
