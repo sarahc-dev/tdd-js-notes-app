@@ -100,4 +100,25 @@ describe("Todolist API", () => {
         const response = await request(app).patch("/todos/123").send({ title: "Walk dog" }).expect(500);
         expect(response.body).toEqual({ error: "Internal server error" });
     });
+
+    it("DELETE /todos/id deletes todo", async () => {
+        await new Todo({ title: "Feed dog" }).save();
+        const todoToDelete = await new Todo({ title: "Walk cat" }).save();
+
+        await request(app).delete(`/todos/${todoToDelete._id}`).expect(200);
+
+        const todos = await Todo.find({});
+        expect(todos).toHaveLength(1);
+        expect(todos).not.toContain(expect.objectContaining({ _id: todoToDelete._id }));
+    });
+
+    it("DELETE /todos/id returns 400 status if invalid id", async () => {
+        const response = await request(app).delete("/todos/64fb1a0f41995f2690f6cf8a").expect(400);
+        expect(response.body).toEqual({ error: "Invalid request" });
+    });
+
+    it("DELETE /todos/id returns 500 status if bad request", async () => {
+        const response = await request(app).delete("/todos/123").expect(500);
+        expect(response.body).toEqual({ error: "Internal server error" });
+    });
 });

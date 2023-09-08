@@ -36,7 +36,24 @@ const todosController = {
 
             res.status(200).json(editedTodo);
         } catch (error) {
-            console.error("Error:", error);
+            // console.error("Error:", error);
+            res.status(500).json({ error: "Internal server error" });
+        }
+    },
+
+    deleteTodo: async (req: Request, res: Response) => {
+        try {
+            const { id } = req.params;
+            const deletedTodo = await Todo.findOneAndDelete({ _id: id });
+
+            if (!deletedTodo) {
+                res.status(400).json({ error: "Invalid request" });
+                return;
+            }
+
+            res.status(200).json(deletedTodo);
+        } catch (error) {
+            // console.error("Error:", error);
             res.status(500).json({ error: "Internal server error" });
         }
     },
