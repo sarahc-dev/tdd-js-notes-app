@@ -57,12 +57,25 @@ describe("Todolist API", () => {
         expect(response.body.completed).toBe(false);
     });
 
+    it("POST /todos returns a 400 status error if no todo", async () => {
+        const newTodo = { title: "" };
+
+        const response = await request(app).post("/todos").send(newTodo).expect(400);
+
+        expect(response.body).toEqual({ error: "Invalid todo" });
+    });
+
     it("POST /todos returns a 500 status error if cannot add todo", async () => {
-        const newTodo = new Todo({});
+        const saveSpy = jest.spyOn(Todo.prototype, "save");
+        saveSpy.mockImplementation(() => {
+            throw new Error("Simulated error");
+        });
 
-        const response = await request(app).post("/todos").send(newTodo).expect(500);
+        const response = await request(app).post("/todos").send({ title: "do something" });
 
+        expect(response.status).toBe(500);
         expect(response.body).toEqual({ error: "Internal server error" });
+        saveSpy.mockRestore();
     });
 
     it("PATCH /todos/id updates completed status to true", async () => {
@@ -101,6 +114,11 @@ describe("Todolist API", () => {
         expect(response.body).toEqual({ error: "Internal server error" });
     });
 
+    it("PATCH /todos/id returns 400 status if invalid id", async () => {
+        const response = await request(app).patch("/todos/64fb1a0f41995f2690f6cf8a").send({ completed: true }).expect(400);
+        expect(response.body).toEqual({ error: "Invalid Id" });
+    });
+
     it("DELETE /todos/id deletes todo", async () => {
         await new Todo({ title: "Feed dog" }).save();
         const todoToDelete = await new Todo({ title: "Walk cat" }).save();
@@ -114,11 +132,15 @@ describe("Todolist API", () => {
 
     it("DELETE /todos/id returns 400 status if invalid id", async () => {
         const response = await request(app).delete("/todos/64fb1a0f41995f2690f6cf8a").expect(400);
-        expect(response.body).toEqual({ error: "Invalid request" });
+        expect(response.body).toEqual({ error: "Invalid Id" });
     });
 
     it("DELETE /todos/id returns 500 status if bad request", async () => {
         const response = await request(app).delete("/todos/123").expect(500);
         expect(response.body).toEqual({ error: "Internal server error" });
+    });
+
+    it("returns 404 error if incorrect path", async () => {
+        await request(app).get("/").expect(404);
     });
 });

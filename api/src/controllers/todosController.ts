@@ -14,7 +14,14 @@ const todosController = {
 
     addTodo: async (req: Request, res: Response) => {
         try {
-            const newTodo = await new Todo(req.body).save();
+            const todo = req.body;
+
+            if (!todo.title || todo.title === "") {
+                res.status(400).json({ error: "Invalid todo" });
+                return;
+            }
+
+            const newTodo = await new Todo(todo).save();
             res.status(201).json(newTodo);
         } catch (error) {
             // console.error("Error:", error);
@@ -34,6 +41,11 @@ const todosController = {
 
             const editedTodo = await Todo.findByIdAndUpdate(id, newValue, { new: true });
 
+            if (!editedTodo) {
+                res.status(400).json({ error: "Invalid Id" });
+                return;
+            }
+
             res.status(200).json(editedTodo);
         } catch (error) {
             // console.error("Error:", error);
@@ -47,7 +59,7 @@ const todosController = {
             const deletedTodo = await Todo.findOneAndDelete({ _id: id });
 
             if (!deletedTodo) {
-                res.status(400).json({ error: "Invalid request" });
+                res.status(400).json({ error: "Invalid Id" });
                 return;
             }
 
