@@ -66,6 +66,7 @@ describe("Todolist API", () => {
     });
 
     it("POST /todos returns a 500 status error if cannot add todo", async () => {
+        console.log(Todo.prototype);
         const saveSpy = jest.spyOn(Todo.prototype, "save");
         saveSpy.mockImplementation(() => {
             throw new Error("Simulated error");

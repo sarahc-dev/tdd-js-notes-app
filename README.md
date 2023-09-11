@@ -18,10 +18,17 @@ The React frontend sends HTTP requests to the backend API and receives JSON data
 
 ## Installation
 
-```plain
-$ git clone https://github.com/sarahc-dev/todolist-collection.git
-$ cd todolist-collection
-...
+```bash
+git clone https://github.com/sarahc-dev/todolist-collection.git
+cd todolist-collection
+cd api
+npm install
+```
+
+To run the tests:
+
+```bash
+npm run test
 ```
 
 ## Planning
@@ -92,8 +99,14 @@ I started off by setting up the TypeScript compiler and console logging "Hello W
 
 ![hello world](./images/hello-world.png)
 
-From these humble beginnings, and in the name of TDD I could now start to write my first test. I am using Jest for unit tests and Supertest, a library that enables you to test APIs, for integration tests. So I started with the integration test. Guided by TypeScript and Jest errors, I found my way to my first "expected" error. This is a failing test I love to see, because it means I have set up everything else correctly.
+From these humble beginnings, and in the name of TDD I could now start to write my first test. I am using Jest and Supertest, a library that enables you to test APIs, for integration tests. So I started with the integration test. Guided by TypeScript and Jest errors, I found my way to my first "expected" error. This is a failing test I love to see, because it means I have set up everything else correctly.
 
 ![first failing test](./images/failing-test.png)
 
-I initially got this test to pass with hard-coded data. I then wanted to get the data from a database. I added another test to assert that the array would be empty if there were no todos to drive the need to return dynamic data.
+I initially got this test to pass with hard-coded data. I then wanted to get the data from a database. I added another test to assert that the array would be empty if there were no todos to drive the need to return dynamic data. I implemented the database and test drove each of the controller methods from my design step.
+
+### Learning
+
+I spent some time researching whether I should implement unit tests for my model and controller functions or not. I could have had my model implement the functions that interact with the database, and I could have tested these separately with mongodb-memory-server - which is a package that spins up an in-memory database for testing purposes. Ultimately, this would  only have been testing that the mongoose methods do what they should. As this is not code I own, arguably this is not necessary.
+
+I also looked at implementing unit tests on my controller, and again found an argument not to. After mocking req and res provided by the Express framewrork and the database, there is no code of my own to test. Therefore I have opted for integration tests using Supertest and a couple of unit tests of my model schema. In a more complicated application, with more business logic I would use unit tests to test this functionality.
