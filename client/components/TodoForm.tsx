@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from "react";
 
 export default function TodoForm({ onSubmit }: { onSubmit: (todo: string) => void }) {

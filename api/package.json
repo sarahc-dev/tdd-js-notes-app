@@ -6,6 +6,7 @@
     "scripts": {
         "start": "nodemon",
         "start:prod": "npm run build && node ./dist/server.js",
+        "start:test": "NODE_ENV=test nodemon",
         "build": "npx tsc",
         "test": "jest --watch --coverage --no-cache"
     },
