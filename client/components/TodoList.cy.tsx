@@ -1,7 +1,7 @@
 import TodoList from "./TodoList";
 
 describe("<TodoList />", () => {
-    it("contains a list of todo components", () => {
+    it("displays a list of todos", () => {
         const todoItems = [
             {
                 _id: "1",
@@ -16,6 +16,8 @@ describe("<TodoList />", () => {
         ];
         cy.mount(<TodoList items={todoItems} />);
         cy.get("ul").children().should("have.length", 2);
+        cy.get("li:first").contains("New todo");
+        cy.get("li:last").contains("Feed cat");
     });
 
     it("displays a message when there are no todos", () => {

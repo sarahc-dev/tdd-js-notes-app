@@ -8,6 +8,7 @@ describe("<TodoForm />", () => {
             cy.get('[data-cy="todo-input"]').type("New todo");
             cy.get('[data-cy="todo-submit"]').click();
             cy.get("@onSubmit").should("have.been.calledWith", "New todo");
+            cy.get('[data-cy="todo-input"]').should("have.value", "");
         });
     });
 });

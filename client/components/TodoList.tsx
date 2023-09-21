@@ -1,3 +1,4 @@
+import TodoItem from "./TodoItem";
 import { ITodo } from "@/types";
 
 export default function TodoList({ items }: { items: ITodo[] }) {
@@ -7,7 +8,7 @@ export default function TodoList({ items }: { items: ITodo[] }) {
     return (
         <ul data-cy="todos">
             {items.map(item => (
-                <li key={item._id}>{item.title}</li>
+                <TodoItem key={item._id} todo={item} />
             ))}
         </ul>
     );
