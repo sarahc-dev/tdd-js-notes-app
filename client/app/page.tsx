@@ -11,7 +11,7 @@ export default function Home() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch("http://localhost:8080/todos");
+                const response = await fetch("http://localhost:8080/api/todos");
                 const todos = await response.json();
                 setTodos(todos);
             } catch (err) {
@@ -23,7 +23,7 @@ export default function Home() {
 
     const addTodo = async (todo: string) => {
         try {
-            const response = await fetch("http://localhost:8080/todos", {
+            const response = await fetch("http://localhost:8080/api/todos", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

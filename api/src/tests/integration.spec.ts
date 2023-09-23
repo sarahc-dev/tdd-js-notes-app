@@ -21,7 +21,7 @@ afterAll(async () => {
 describe("Todolist API", () => {
     it("GET /todos returns an array of all todos", async () => {
         await new Todo({ title: "Feed cat" }).save();
-        const response = await request(app).get("/todos").expect("Content-Type", /json/).expect(200);
+        const response = await request(app).get("/api/todos").expect("Content-Type", /json/).expect(200);
 
         expect(response.body).toHaveLength(1);
         expect(response.body[0]).toHaveProperty("_id");
@@ -30,7 +30,7 @@ describe("Todolist API", () => {
     });
 
     it("GET /todos returns an empty array when there are no todos", async () => {
-        const response = await request(app).get("/todos").expect("Content-Type", /json/).expect(200);
+        const response = await request(app).get("/api/todos").expect("Content-Type", /json/).expect(200);
 
         expect(response.body).toHaveLength(0);
     });
@@ -41,7 +41,7 @@ describe("Todolist API", () => {
             throw new Error("Simulated error");
         });
 
-        const response = await request(app).get("/todos").expect("Content-Type", /json/).expect(500);
+        const response = await request(app).get("/api/todos").expect("Content-Type", /json/).expect(500);
 
         expect(response.body).toEqual({ error: "Internal server error" });
 
@@ -50,7 +50,7 @@ describe("Todolist API", () => {
 
     it("POST /todos adds a new todo", async () => {
         const newTodo = { title: "Make a cake" };
-        const response = await request(app).post("/todos").send(newTodo).expect(201);
+        const response = await request(app).post("/api/todos").send(newTodo).expect(201);
 
         expect(response.body).toHaveProperty("_id");
         expect(response.body.title).toBe("Make a cake");
@@ -60,7 +60,7 @@ describe("Todolist API", () => {
     it("POST /todos returns a 400 status error if no todo", async () => {
         const newTodo = { title: "" };
 
-        const response = await request(app).post("/todos").send(newTodo).expect(400);
+        const response = await request(app).post("/api/todos").send(newTodo).expect(400);
 
         expect(response.body).toEqual({ error: "Invalid todo" });
     });
@@ -72,7 +72,7 @@ describe("Todolist API", () => {
             throw new Error("Simulated error");
         });
 
-        const response = await request(app).post("/todos").send({ title: "do something" });
+        const response = await request(app).post("/api/todos").send({ title: "do something" });
 
         expect(response.status).toBe(500);
         expect(response.body).toEqual({ error: "Internal server error" });
@@ -82,7 +82,7 @@ describe("Todolist API", () => {
     it("PATCH /todos/id updates completed status to true", async () => {
         const todo = await new Todo({ title: "Walk cat" }).save();
 
-        const response = await request(app).patch(`/todos/${todo._id}`).send({ completed: true }).expect(200);
+        const response = await request(app).patch(`/api/todos/${todo._id}`).send({ completed: true }).expect(200);
 
         expect(response.body._id.toString()).toEqual(todo._id.toString());
         expect(response.body.title).toBe("Walk cat");
@@ -92,7 +92,7 @@ describe("Todolist API", () => {
     it("PATCH /todos/id updates contents of todo", async () => {
         const todo = await new Todo({ title: "Walk cat" }).save();
 
-        const response = await request(app).patch(`/todos/${todo._id}`).send({ title: "Walk dog" }).expect(200);
+        const response = await request(app).patch(`/api/todos/${todo._id}`).send({ title: "Walk dog" }).expect(200);
 
         expect(response.body._id.toString()).toEqual(todo._id.toString());
         expect(response.body.title).toBe("Walk dog");
@@ -100,23 +100,23 @@ describe("Todolist API", () => {
     });
 
     it("PATCH /todos/id returns 404 status if no id", async () => {
-        await request(app).patch("/todos/").send({ title: "Walk dog" }).expect(404);
+        await request(app).patch("/api/todos/").send({ title: "Walk dog" }).expect(404);
     });
 
     it("PATCH /todos/id returns 400 status if no value to update", async () => {
         const todo = await new Todo({ title: "Walk cat" }).save();
 
-        const response = await request(app).patch(`/todos/${todo._id}`).send().expect(400);
+        const response = await request(app).patch(`/api/todos/${todo._id}`).send().expect(400);
         expect(response.body).toEqual({ error: "Invalid request" });
     });
 
     it("PATCH /todos/id returns 500 status error if it cannot update todo", async () => {
-        const response = await request(app).patch("/todos/123").send({ title: "Walk dog" }).expect(500);
+        const response = await request(app).patch("/api/todos/123").send({ title: "Walk dog" }).expect(500);
         expect(response.body).toEqual({ error: "Internal server error" });
     });
 
     it("PATCH /todos/id returns 400 status if invalid id", async () => {
-        const response = await request(app).patch("/todos/64fb1a0f41995f2690f6cf8a").send({ completed: true }).expect(400);
+        const response = await request(app).patch("/api/todos/64fb1a0f41995f2690f6cf8a").send({ completed: true }).expect(400);
         expect(response.body).toEqual({ error: "Invalid Id" });
     });
 
@@ -124,7 +124,7 @@ describe("Todolist API", () => {
         await new Todo({ title: "Feed dog" }).save();
         const todoToDelete = await new Todo({ title: "Walk cat" }).save();
 
-        await request(app).delete(`/todos/${todoToDelete._id}`).expect(200);
+        await request(app).delete(`/api/todos/${todoToDelete._id}`).expect(200);
 
         const todos = await Todo.find({});
         expect(todos).toHaveLength(1);
@@ -132,12 +132,12 @@ describe("Todolist API", () => {
     });
 
     it("DELETE /todos/id returns 400 status if invalid id", async () => {
-        const response = await request(app).delete("/todos/64fb1a0f41995f2690f6cf8a").expect(400);
+        const response = await request(app).delete("/api/todos/64fb1a0f41995f2690f6cf8a").expect(400);
         expect(response.body).toEqual({ error: "Invalid Id" });
     });
 
     it("DELETE /todos/id returns 500 status if bad request", async () => {
-        const response = await request(app).delete("/todos/123").expect(500);
+        const response = await request(app).delete("/api/todos/123").expect(500);
         expect(response.body).toEqual({ error: "Internal server error" });
     });
 

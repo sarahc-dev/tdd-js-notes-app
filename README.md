@@ -105,8 +105,16 @@ From these humble beginnings, and in the name of TDD I could now start to write 
 
 I initially got this test to pass with hard-coded data. I then wanted to get the data from a database. I added another test to assert that the array would be empty if there were no todos to drive the need to return dynamic data. I implemented the database and test drove each of the controller methods from my design step.
 
-### Learning
+#### Learning
 
 I spent some time researching whether I should implement unit tests for my model and controller functions or not. I could have had my model implement the functions that interact with the database, and I could have tested these separately with mongodb-memory-server - which is a package that spins up an in-memory database for testing purposes. Ultimately, this would  only have been testing that the mongoose methods do what they should. As this is not code I own, arguably this is not necessary.
 
 I also looked at implementing unit tests on my controller, and again found an argument not to. After mocking req and res provided by the Express framewrork and the database, there is no code of my own to test. Therefore I have opted for integration tests using Supertest and a couple of unit tests of my model schema. In a more complicated application, with more business logic I would use unit tests to test this functionality.
+
+### Frontend
+
+I began using create-next-app to set up the client folder using Next.js, TypeScript and TailwindCSS. I set up Cypress and started with my first e2e test to add a todo. With this failing test I dipped out create unit tests and test drive the TodoForm and TodoList components before putting these together and seeing the e2e test pass.
+
+#### Frontend Learning
+
+It was interesting how much more I considered the structure of each component using strictly TDD and how my components are much smaller than I might have used in the past to make testing easier.

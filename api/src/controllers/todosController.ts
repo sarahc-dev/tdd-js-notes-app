@@ -34,7 +34,7 @@ const todosController = {
             const { id } = req.params;
             const newValue = req.body;
 
-            if ((!newValue.title && !newValue.completed) || newValue.title === "") {
+            if ((!newValue.title && typeof newValue.completed !== "boolean") || newValue.title === "") {
                 res.status(400).json({ error: "Invalid request" });
                 return;
             }

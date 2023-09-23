@@ -6,7 +6,7 @@ export default function TodoList({ items }: { items: ITodo[] }) {
         return <p>There&apos;s nothing to do.</p>;
     }
     return (
-        <ul data-cy="todos">
+        <ul className="mt-4" data-cy="todos">
             {items.map(item => (
                 <TodoItem key={item._id} todo={item} />
             ))}
