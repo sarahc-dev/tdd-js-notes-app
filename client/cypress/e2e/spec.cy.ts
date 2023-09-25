@@ -1,7 +1,7 @@
 describe("todolist app", () => {
     beforeEach(() => {
-        cy.intercept("http://localhost:8080/todos").as("todos");
-        cy.request("POST", "http://localhost:8080/test/deleteAll");
+        cy.intercept("http://localhost:8080/api/todos").as("todos");
+        cy.request("POST", "http://localhost:8080/api/test/deleteAll");
         cy.visit("http://localhost:3000");
         cy.wait("@todos");
     });

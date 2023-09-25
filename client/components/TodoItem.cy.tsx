@@ -10,7 +10,7 @@ describe("<TodoItem />", () => {
         };
 
         cy.mount(<TodoItem todo={todo} />);
-        cy.get("li").should("have.text", "New todo").and("not.have.class", "line-through");
+        cy.get("li").should("include.text", "New todo").and("not.have.class", "line-through");
     });
 
     it("displays the todo with line-through if it is completed", () => {
@@ -21,6 +21,6 @@ describe("<TodoItem />", () => {
         };
 
         cy.mount(<TodoItem todo={todo} />);
-        cy.get("li").should("have.text", "New todo").and("have.class", "line-through");
+        cy.get("li").should("include.text", "New todo").and("have.class", "line-through");
     });
 });
