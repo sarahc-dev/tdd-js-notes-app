@@ -1,6 +1,9 @@
-import { describe, it, expect, jest } from "@jest/globals";
 import { renderHook, waitFor, act } from "@testing-library/react";
 import useTodoApi from "./useTodoApi";
+
+beforeAll(() => {
+    jest.spyOn(console, "error").mockImplementation(() => {});
+});
 
 describe("useTodoApi hook", () => {
     it("todos should initially be an empty array", () => {

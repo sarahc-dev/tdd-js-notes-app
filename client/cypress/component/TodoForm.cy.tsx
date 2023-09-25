@@ -1,4 +1,4 @@
-import TodoForm from "./TodoForm";
+import TodoForm from "../../components/TodoForm";
 
 describe("<TodoForm />", () => {
     context("when the user enters a todo", () => {

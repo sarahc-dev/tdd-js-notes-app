@@ -10,7 +10,7 @@ app.use(cors());
 app.use("/api/todos", todosRouter);
 
 if (process.env.NODE_ENV === "test") {
-    app.use("api/test", testingRouter);
+    app.use("/api/test", testingRouter);
 }
 
 export default app;

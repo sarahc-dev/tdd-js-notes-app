@@ -1,4 +1,4 @@
-import TodoItem from "./TodoItem";
+import TodoItem from "../../components/TodoItem";
 import "@/app/globals.css";
 
 describe("<TodoItem />", () => {

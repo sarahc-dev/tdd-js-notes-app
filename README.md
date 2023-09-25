@@ -115,6 +115,5 @@ I also looked at implementing unit tests on my controller, and again found an ar
 
 I began using create-next-app to set up the client folder using Next.js, TypeScript and TailwindCSS. I set up Cypress and started with my first e2e test to add a todo. With this failing test I dipped out create unit tests and test drive the TodoForm and TodoList components before putting these together and seeing the e2e test pass.
 
-#### Frontend Learning
+On implementing the functionality to mark a todo as complete, I decided to put the todos state and the functions that affect this state into a custom hook. This led me to trying to unit test the hook and coming across various problems around conflicting typescript types between jest and cypress. I have resolved this by moving the component tests into the cypress folder.
 
-It was interesting how much more I considered the structure of each component using strictly TDD and how my components are much smaller than I might have used in the past to make testing easier.
