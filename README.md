@@ -113,7 +113,7 @@ I also looked at implementing unit tests on my controller, and again found an ar
 
 ### Frontend
 
-I began using create-next-app to set up the client folder using Next.js, TypeScript and TailwindCSS. I set up Cypress and started with my first e2e test to add a todo. With this failing test I dipped out create unit tests and test drive the TodoForm and TodoList components before putting these together and seeing the e2e test pass.
+I began using create-next-app to set up the client folder using Next.js, TypeScript and TailwindCSS. I set up Cypress and started with my first e2e test to add a todo. With this failing test I dipped out create component tests and test drive the TodoForm and TodoList components before putting these together and seeing the e2e test pass.
 
-On implementing the functionality to mark a todo as complete, I decided to put the todos state and the functions that affect this state into a custom hook. This led me to trying to unit test the hook and coming across various problems around conflicting typescript types between jest and cypress. I have resolved this by moving the component tests into the cypress folder.
+On implementing the functionality to mark a todo as complete, I decided to put the todos state and the functions that affect this state into a custom hook. This led me to trying to unit test the hook and coming across various problems around conflicting typescript types between jest and cypress. Upon further research, again there is an argument not to unit test the custom hook itself, but run them as part of integration tests. In my hook, there is very little business logic, it is more a means of interacting with the api and by the time I have mocked fetch there is little left to test.
 

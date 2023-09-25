@@ -1,4 +1,4 @@
-import Checkbox from "../../components/Checkbox";
+import Checkbox from "./Checkbox";
 import "@/app/globals.css";
 
 describe("<Checkbox />", () => {

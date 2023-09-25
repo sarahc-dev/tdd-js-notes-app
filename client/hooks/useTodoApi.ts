@@ -3,6 +3,7 @@ import { ITodo } from "@/types";
 
 const useTodoApi = () => {
     const [todos, setTodos] = useState<ITodo[]>([]);
+    const [isLoading, setIsLoading] = useState<boolean>(true);
 
     const apiUrl = "http://localhost:8080/api/todos";
 
@@ -16,6 +17,7 @@ const useTodoApi = () => {
 
             const data = await response.json();
             setTodos(data);
+            setIsLoading(false);
         } catch (error) {
             let message;
             if (error instanceof Error) message = error.message;
@@ -63,6 +65,7 @@ const useTodoApi = () => {
             }
 
             const data = await response.json();
+
             setTodos(prevTodos => {
                 return prevTodos.map(todo => {
                     if (todo._id === data._id) {
@@ -79,14 +82,42 @@ const useTodoApi = () => {
         }
     };
 
+    const deleteTodo = async (id: string) => {
+        try {
+            const response = await fetch(`${apiUrl}/${id}`, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+
+            if (!response.ok) {
+                throw new Error("Network response error");
+            }
+
+            const data = await response.json();
+            return data;
+            // setTodos(prevTodos => {
+            //     return prevTodos.filter(todo => todo._id !== data._id);
+            // });
+        } catch (error) {
+            let message;
+            if (error instanceof Error) message = error.message;
+            else message = String(error);
+            console.error("Error deleting todo:", message);
+        }
+    };
+
     useEffect(() => {
         fetchTodos();
     }, []);
 
     return {
         todos,
+        isLoading,
         addTodo,
         editTodo,
+        deleteTodo,
     };
 };
 

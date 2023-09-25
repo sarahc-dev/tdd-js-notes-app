@@ -1,4 +1,4 @@
-import TodoList from "../../components/TodoList";
+import TodoList from "./TodoList";
 
 describe("<TodoList />", () => {
     it("displays a list of todos", () => {

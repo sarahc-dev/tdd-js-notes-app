@@ -22,4 +22,12 @@ describe("todolist app", () => {
         cy.get('[data-cy="checkbox"]').should("have.descendants", "svg");
         cy.get('[data-cy="todos"] li').should("have.class", "line-through");
     });
+
+    it("deletes a todo", () => {
+        cy.get('[data-cy="todo-input"]').type("To be deleted");
+        cy.get('[data-cy="todo-submit"]').click();
+        cy.get('[data-cy="todos"]').should("contain", "To be deleted");
+        cy.get('[data-cy="delete"]').click();
+        cy.get('[data-cy="todos"]').should("not.contain", "To be deleted");
+    });
 });
