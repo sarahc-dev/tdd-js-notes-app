@@ -1,12 +1,12 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import TodoForm from "@/components/TodoForm";
 import TodoList from "@/components/TodoList";
 import useTodoApi from "@/hooks/useTodoApi";
+import { Oval } from "react-loader-spinner";
 
 export default function Home() {
-    const { todos, addTodo } = useTodoApi();
+    const { todos, isLoading, addTodo } = useTodoApi();
 
     const handleAddTodo = async (todo: string) => {
         addTodo(todo);
@@ -16,7 +16,8 @@ export default function Home() {
         <main className="flex min-h-screen flex-col items-center p-24">
             <h1>TODO</h1>
             <TodoForm onSubmit={handleAddTodo} />
-            <TodoList items={todos} />
+
+            {isLoading ? <Oval height={24} width={24} color="#4fa94d" ariaLabel="oval-loading" /> : <TodoList items={todos} />}
         </main>
     );
 }
