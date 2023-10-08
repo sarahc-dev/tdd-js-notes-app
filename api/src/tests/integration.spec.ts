@@ -145,3 +145,27 @@ describe("Todolist API", () => {
         await request(app).get("/").expect(404);
     });
 });
+
+describe("Test route", () => {
+    it("POST /test/deleteAll deletes all todos", async () => {
+        await new Todo({ title: "Feed dog" }).save();
+
+        await request(app).post("/api/test/deleteAll").expect(200);
+
+        const todos = await Todo.find({});
+        expect(todos).toHaveLength(0);
+    });
+
+    it("POST /test/deleteAll returns a 500 status error if cannot delete todos", async () => {
+        const deleteSpy = jest.spyOn(Todo, "deleteMany");
+        deleteSpy.mockImplementation(() => {
+            throw new Error("Simulated error");
+        });
+
+        const response = await request(app).post("/api/test/deleteAll").expect("Content-Type", /json/).expect(500);
+
+        expect(response.body).toEqual({ error: "Internal server error" });
+
+        deleteSpy.mockRestore();
+    });
+});

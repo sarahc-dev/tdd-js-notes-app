@@ -1,6 +1,6 @@
 # Todo List App
 
-I want to make a simple full-stack CRUD app so that I can focus on process and also go on to make the same app utilising and learning different backend frameworks. I will be strictly using TDD throughout.
+I want to make a simple full-stack CRUD app so that I can focus on process and also go on to make the same app utilising and learning different backend frameworks. I will be trying to utilise TDD throughout.
 
 You will be able to create a todo, mark it as complete, see all items in your todo list, edit todos, delete todos and filter for complete and incomplete todos.
 
@@ -8,13 +8,15 @@ In the frontend, I will use React and Next.js (along with TypeScript, TailwindCS
 
 For the database, I will be using MongoDB.
 
+## The other repositories
+
+- [Frontend - React (Next.js), TypeScript, TailwindCSS and Cypress](https://github.com/sarahc-dev/todolist-frontend-nextjs)
+
 ## The MERN stack app
 
 Here, I will be building the App with a backend API built with Node.js, Express and TypeScript. I am using Jest and Supertest for testing.
 
 The React frontend sends HTTP requests to the backend API and receives JSON data in response.
-
-### See the other projects:
 
 ## Installation
 
@@ -31,36 +33,42 @@ To run the tests:
 npm run test
 ```
 
+To run the test server (uses test db):
+
+```bash
+npm run start:test
+```
+
 ## Planning
 
 ### User stories
 
 ```plain
-As a user
+As a busy user
 So that I can remember something I need to do
 I want to create a new todo
 
-As a user
+As a busy user
 So that I can keep track of all of my todos
 I want to see all of my todos
 
-As a user
+As a busy user
 So that I can check off my todolist
 I want to mark a todo as complete
 
-As a user
+As a busy user
 So that I can update a todo item
 I want to edit a todo
 
-As a user
+As a busy user
 So that I can remove a todo item
 I want to delete a todo
 
-As a user
+As a busy user
 So that I can see what I have done
 I want to filter completed todos
 
-As a user
+As a busy user
 So that I can see what I still have to do
 I want to filter incomplete todos
 ```
@@ -83,15 +91,7 @@ I will be following the Model-View-Controller (MVC) architectural pattern.
 
 ![backend diagram](./images/backend-diagram.png)
 
-### Frontend Component Design
-
-This is my initial plan for the component breakdown. It may change slightly, particularly in terms of the editing functionality.
-
-![component breakdown](./images/component-breakdown.png)
-
 ## Process
-
-### Backend
 
 I began by creating the backend. I wanted to learn more about integrating TypeScript in the backend and understand everything I am doing so I have set up my backend from scratch.
 
@@ -105,15 +105,12 @@ From these humble beginnings, and in the name of TDD I could now start to write 
 
 I initially got this test to pass with hard-coded data. I then wanted to get the data from a database. I added another test to assert that the array would be empty if there were no todos to drive the need to return dynamic data. I implemented the database and test drove each of the controller methods from my design step.
 
-#### Learning
+## Testing Coverage
+
+![Testing coverage](./images/testing-coverage.png)
+
+## Learning
 
 I spent some time researching whether I should implement unit tests for my model and controller functions or not. I could have had my model implement the functions that interact with the database, and I could have tested these separately with mongodb-memory-server - which is a package that spins up an in-memory database for testing purposes. Ultimately, this would  only have been testing that the mongoose methods do what they should. As this is not code I own, arguably this is not necessary.
 
 I also looked at implementing unit tests on my controller, and again found an argument not to. After mocking req and res provided by the Express framewrork and the database, there is no code of my own to test. Therefore I have opted for integration tests using Supertest and a couple of unit tests of my model schema. In a more complicated application, with more business logic I would use unit tests to test this functionality.
-
-### Frontend
-
-I began using create-next-app to set up the client folder using Next.js, TypeScript and TailwindCSS. I set up Cypress and started with my first e2e test to add a todo. With this failing test I dipped out create component tests and test drive the TodoForm and TodoList components before putting these together and seeing the e2e test pass.
-
-On implementing the functionality to mark a todo as complete, I decided to put the todos state and the functions that affect this state into a custom hook. This led me to trying to unit test the hook and coming across various problems around conflicting typescript types between jest and cypress. Upon further research, again there is an argument not to unit test the custom hook itself, but run them as part of integration tests. In my hook, there is very little business logic, it is more a means of interacting with the api and by the time I have mocked fetch there is little left to test.
-
