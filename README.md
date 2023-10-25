@@ -11,6 +11,7 @@ For the database, I will be using MongoDB.
 ## The other repositories
 
 - [Frontend - React (Next.js), TypeScript, TailwindCSS and Cypress](https://github.com/sarahc-dev/todolist-frontend-nextjs)
+- [Backend - Java Spring Boot and Junit](https://github.com/sarahc-dev/todolist-java-spring-boot)
 
 ## The MERN stack app
 
@@ -114,3 +115,5 @@ I initially got this test to pass with hard-coded data. I then wanted to get the
 I spent some time researching whether I should implement unit tests for my model and controller functions or not. I could have had my model implement the functions that interact with the database, and I could have tested these separately with mongodb-memory-server - which is a package that spins up an in-memory database for testing purposes. Ultimately, this would  only have been testing that the mongoose methods do what they should. As this is not code I own, arguably this is not necessary.
 
 I also looked at implementing unit tests on my controller, and again found an argument not to. After mocking req and res provided by the Express framewrork and the database, there is no code of my own to test. Therefore I have opted for integration tests using Supertest and a couple of unit tests of my model schema. In a more complicated application, with more business logic I would use unit tests to test this functionality.
+
+Having now recreated the backend in Java with the Spring Boot architecture, the unit testing of the controller makes a lot more sense to me now. Here, I separated the Service layer which could then be mocked making testing much easier.
