@@ -12,6 +12,7 @@ For the database, I will be using MongoDB.
 
 - [Frontend - React (Next.js), TypeScript, TailwindCSS and Cypress](https://github.com/sarahc-dev/todolist-frontend-nextjs)
 - [Backend - Java Spring Boot and Junit](https://github.com/sarahc-dev/todolist-java-spring-boot)
+- [Next.js API route handler](https://github.com/sarahc-dev/todolist-nextjs-api)
 
 ## The MERN stack app
 
